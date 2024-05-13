@@ -4,7 +4,7 @@ btn.addEventListener('click', function(){
     rendCalculator();
 });
 
-let resultDisplay;  // Declare resultDisplay at a higher scope
+let resultDisplay;  
 
 function rendCalculator() {
     let divCalc = document.createElement('div');
@@ -88,7 +88,7 @@ function calculateResult() {
             case '+': return a + b;
             case '-': return a - b;
             case '*': return a * b;
-            case '/': return a / b ;
+            case '/': return b !== 0 ? a / b : Infinity; // Prevent division by zero
             default: return b; // if no operator matches
         }
     }
@@ -99,7 +99,7 @@ function calculateResult() {
         return 0;
     }
 
-    // Process each token and store them in a stack
+
     tokens.forEach(token => {
         if (!isNaN(parseFloat(token))) {
             values.push(parseFloat(token));
@@ -113,7 +113,7 @@ function calculateResult() {
             operators.push(token);
         }
     });
-s
+    
     while (operators.length !== 0) {
         const val2 = values.pop();
         const val1 = values.pop();
@@ -121,7 +121,7 @@ s
         values.push(applyOperator(op, val2, val1));
     }
 
-    
+    // Update the result display
     resultDisplay.textContent = 'Result: ' + values.pop();
 }
 
